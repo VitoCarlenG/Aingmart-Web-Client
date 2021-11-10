@@ -15,8 +15,8 @@
       </v-card-title>
       <v-data-table :headers="headers" :items="todos" :search="search">
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn small class="mr-2" @click="editItem(item)">edit</v-btn>
-          <v-btn small @click="deleteItem(item)">delete</v-btn>
+          <v class="mr-2" style="color: #FF0000;" @click="editItem(item)"><font-awesome-icon icon="pencil-alt"/></v>
+          <v style="color: #00FF00;" @click="deleteItem(item)"><font-awesome-icon icon="trash"/></v>
         </template>
       </v-data-table>
     </v-card>
@@ -104,6 +104,11 @@ export default {
     cancel() {
       this.resetForm();
       this.dialog = false;
+    },
+    deleteItem(item){
+      this.items = this.items.filter((i)=> { 
+        return i.task !== item.task;
+      });
     },
     resetForm() {
       this.formTodo = { task: null, priority: null, note: null };
