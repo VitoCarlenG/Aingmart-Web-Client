@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard">
-    <v-navigation-drawer class="fullheight" width="256" permanent app fixed>
+    <v-navigation-drawer v-model="drawer" class="fullheight" width="256" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Vito Carlen Giovanni</v-list-item-title>
-          <v-list-item-subtitle>190710181</v-list-item-subtitle>
+          <v-list-item-title class="title"><img src="../assets/aingmart.png" style="width: 90%"></v-list-item-title>
+          <v-list-item-subtitle><img src="../assets/slogan.png" style="width: 90%"></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -18,12 +18,21 @@
           :to="item.to"
         >
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title><font-awesome-icon icon="angle-double-right" color="green"/> {{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <div class="grey lighten-4 fullheight pa-5">
+
+    <v-app-bar color="green" app fixed height="75px">
+      <v-app-bar-nav-icon  color="white" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <VSpacer/>
+      <v-toolbar-items>
+        <img src="../assets/aingmart.png" style="width: 85%;">
+      </v-toolbar-items>
+    </v-app-bar>
+
+    <div class="fullheight pa-5">
       <router-view></router-view>
     </div>
   </div>
@@ -34,16 +43,43 @@ export default {
   name: "Dashboard",
   data() {
     return {
+      drawer: true,
       items: [
-        { title: "Dashboard", to: "/" },
-        { title: "GD", to: "/gd" },
+        { title: "Dashboard", to: "/dashboard" },
+        { title: "Profile Pengguna", to: "/user" },
+        { title: "Daftar Makanan", to: "/makanan" },
+        { title: "Daftar Minuman", to: "/minuman" },
+        { title: "Daftar Voucher", to: "/voucher" },
+        { title: "Logout", to: "logout" },
       ],
     };
   },
+
+  methods: {
+    logout()
+    {
+      localStorage.removeItem('token');
+      this.$router.push({
+          name: 'Login',
+      });
+    },
+  },
 };
 </script>
+
 <style scoped>
-.fullheight {
-  min-height: 100vh !important;
-}
+  .fullheight {
+    min-height: 100vh !important;
+  }
+
+  .items {
+    font: italic;
+  }
+
+  .router{
+    text-decoration: none;
+    color: black;
+  }
 </style>
+
+
